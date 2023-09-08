@@ -11,7 +11,7 @@ char_to_int :: proc(char: rune) -> int {
 string_to_int :: proc(str: string) -> (res: int) {
     place_value := 1
     #reverse for v in str {
-        res += char_to_int(v) * place_value
+        res += (cast(int) v - 48) * place_value
         place_value *= 10
     }
     return
