@@ -6,8 +6,7 @@ import "core:strings"
 INPUT :: #load("input.txt", string)
 CYCLES :: [?]int{20, 60, 100, 140, 180, 220}
 
-InstructionType :: enum {noop, add}
-Instruction :: struct {type: InstructionType, value: int}
+Instruction :: union {int}
 
 string_to_int :: proc(str: string) -> (res: int) {
     place_value := 1
@@ -24,11 +23,11 @@ string_to_int :: proc(str: string) -> (res: int) {
 parse :: proc(input: string) -> []Instruction {
     res := [dynamic]Instruction{}
     for line in strings.split_lines(input) {
-        if line[0] == 'n' do append(&res, Instruction{.noop, 0})
+        if line[0] == 'n' do append(&res, nil)
         else {
             split := strings.split(line, " ")
             value := string_to_int(split[1])
-            append(&res, Instruction{.add, value})
+            append(&res, value)
         }
     }
     return res[:]
@@ -38,21 +37,20 @@ compute_signal :: proc(instructions: []Instruction) -> ([]int) {
     x := 1
     cycle := 0
     res := [dynamic]int{}
-    
+
     for instruction in instructions {
-        if instruction.type == .noop {
-            cycle += 1
-            append(&res, x)
-        }
-        else if instruction.type == .add {
+        value, ok := instruction.(int)
+        if ok {
             for i in 0..<2 {
                 cycle += 1
                 append(&res, x)
             }
-            x += instruction.value
+            x += value
+        } else {
+            cycle += 1
+            append(&res, x)
         }
     }
-    // append(&res, x)
     return res[:]
 }
 
