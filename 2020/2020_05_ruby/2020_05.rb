@@ -22,6 +22,7 @@ lines = File.open("input.txt").read.split("\n")
 ids = lines.map { |line| calc_seat_id(line) }
 puts "Part 1: #{ids.max}"
 
-for i in 48..874 do
+ids.sort!
+for i in ids.first..ids.last do
   if !ids.include?(i) then puts "Part 2: #{i}" end
 end
