@@ -39,3 +39,10 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+
+### Rust ###
+target/
+*.swp
+*~
+.localized
+.env
