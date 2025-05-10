@@ -1,9 +1,5 @@
 import java.io.File
 
-fun readInput(): String {
-    return File("input.txt").readText().trim()
-}
-
 fun parseMul(mul: String): Int {
     val numPattern = Regex("""\d{1,3}""")
     val (num1, num2) = numPattern.findAll(mul).map { it.value.toInt() }.toList()
@@ -34,7 +30,7 @@ fun part2(input: String): Int {
 }
 
 fun main() {
-    val input = readInput()
+    val input = File("input.txt").readText().trim()
     println("Part 1: ${part1(input)}")
     println("Part 2: ${part2(input)}")
 }
