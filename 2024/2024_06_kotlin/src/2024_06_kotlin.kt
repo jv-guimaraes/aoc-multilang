@@ -46,17 +46,6 @@ fun Grid.findGuard(): Guard {
     error("No Guard found in the map")
 }
 
-fun clearTerminalWindows() {
-    try {
-        val processBuilder = ProcessBuilder("cmd", "/c", "cls")
-        processBuilder.inheritIO()
-        val process = processBuilder.start()
-        process.waitFor()
-    } catch (e: Exception) {
-        e.printStackTrace()
-    }
-}
-
 fun charToDir(char: Char): Vec {
     return when (char) {
         '^' -> Dirs.UP
