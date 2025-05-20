@@ -52,3 +52,9 @@ target/
 .localized
 .env
 run.bat
+
+### Lean ###
+lean-toolchain
+lakefile.toml
+lake-manifest.json
+.lake
